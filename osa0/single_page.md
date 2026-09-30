@@ -1,3 +1,4 @@
+```mermaid
 sequenceDiagram
     participant browser
     participant server
@@ -23,3 +24,4 @@ Note right of browser: browser executes code that fetches data.json
     activate server
     server->>browser: HTML page
     deactivate server
+```
