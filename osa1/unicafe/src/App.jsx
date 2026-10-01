@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 const Button = ({onClick, text}) => <button onClick={onClick}>{text}</button>
-const Stats = ({label, count}) => <>{label} {count}<br/></>
+const Stats = ({label, content}) => <>{label} {content}<br/></>
 
 const App = () => {
   // tallenna napit omaan tilaansa
@@ -10,6 +10,7 @@ const App = () => {
   const [bad, setBad] = useState(0)
 
   const incrementor = (status, setter) => () => setter(status + 1)
+  const total = [good, neutral, bad].reduce((num, init) => num + init, 0)
 
   return (
     <div>
@@ -18,9 +19,12 @@ const App = () => {
       <Button onClick={incrementor(neutral, setNeutral)} text={"neutral"}/>
       <Button onClick={incrementor(bad, setBad)} text={"bad"}/>
       <h1>statistics</h1>
-      <Stats label={"good"} count={good}/>
-      <Stats label={"neutral"} count={neutral}/>
-      <Stats label={"bad"} count={bad}/>
+      <Stats label={"good"} content={good}/>
+      <Stats label={"neutral"} content={neutral}/>
+      <Stats label={"bad"} content={bad}/>
+      <Stats label={"all"} content={total}/>
+      <Stats label={"average"} content={(good - bad) / total}/>
+      <Stats label={"positive"} content={(good / total)*100 + "%"}/>
     </div>
   )
 }
