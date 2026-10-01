@@ -3,6 +3,20 @@ import { useState } from 'react'
 const Button = ({onClick, text}) => <button onClick={onClick}>{text}</button>
 const Stats = ({label, content}) => <>{label} {content}<br/></>
 
+const Statistics = ({good, neutral, bad}) => {
+  const total = [good, neutral, bad].reduce((acc, inc)=> acc + inc, 0)
+  return (
+    <>
+      <Stats label={"good"} content={good}/>
+      <Stats label={"neutral"} content={neutral}/>
+      <Stats label={"bad"} content={bad}/>
+      <Stats label={"all"} content={total}/>
+      <Stats label={"average"} content={(good - bad) / total}/>
+      <Stats label={"positive"} content={(good / total)*100 + "%"}/>
+    </>
+  )
+}
+
 const App = () => {
   // tallenna napit omaan tilaansa
   const [good, setGood] = useState(0)
@@ -19,12 +33,7 @@ const App = () => {
       <Button onClick={incrementor(neutral, setNeutral)} text={"neutral"}/>
       <Button onClick={incrementor(bad, setBad)} text={"bad"}/>
       <h1>statistics</h1>
-      <Stats label={"good"} content={good}/>
-      <Stats label={"neutral"} content={neutral}/>
-      <Stats label={"bad"} content={bad}/>
-      <Stats label={"all"} content={total}/>
-      <Stats label={"average"} content={(good - bad) / total}/>
-      <Stats label={"positive"} content={(good / total)*100 + "%"}/>
+      <Statistics good={good} neutral={neutral} bad={bad}/>
     </div>
   )
 }
