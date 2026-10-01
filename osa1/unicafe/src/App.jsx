@@ -5,6 +5,9 @@ const Stats = ({label, content}) => <>{label} {content}<br/></>
 
 const Statistics = ({good, neutral, bad}) => {
   const total = [good, neutral, bad].reduce((acc, inc)=> acc + inc, 0)
+  if (total === 0) {
+    return <p>No feedback given</p>
+  }
   return (
     <>
       <Stats label={"good"} content={good}/>
@@ -24,7 +27,6 @@ const App = () => {
   const [bad, setBad] = useState(0)
 
   const incrementor = (status, setter) => () => setter(status + 1)
-  const total = [good, neutral, bad].reduce((num, init) => num + init, 0)
 
   return (
     <div>
